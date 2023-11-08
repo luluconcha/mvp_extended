@@ -1,12 +1,16 @@
-const cors = require('cors');  // add at the top
-
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');  // add at the top
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+var characterRouter = require('./routes/characterSheet');
+var classRouter = require('./routes/characterClass');
+var inventoryRouter = require('./routes/inventory');
+var listRouter = require('./routes/inventoryList');
+var raceRouter = require('./routes/race');
+
 
 var app = express();
 
@@ -18,10 +22,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 app.use(cors());  // add after 'app' is created
+
+
+app.use('/character', characterRouter);
+app.use('/class', classRouter);
+app.use('/inventory', inventoryRouter);
+app.use('/inventoryList', listRouter);
+app.use('/race', raceRouter);
+
+
 
 
 module.exports = app;
