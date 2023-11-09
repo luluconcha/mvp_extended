@@ -37,6 +37,13 @@ const SheetCreator = ({ onBackToHome }) => {
   const [resilience, setResilience] = useState(1);
   const [magic, setMagic] = useState(1);
   const [cuteness, setCuteness] = useState(1);
+
+  // New state for the array of selected inventory item IDs
+  const [selectedInventoryItemIds, setSelectedInventoryItemIds] = useState([]);
+
+  // State for inventory items
+  const [allInventory, setAllInventory] = useState([]);
+
   
   // Handle input changes
   const handleInputChange = (e) => {
@@ -68,16 +75,22 @@ const SheetCreator = ({ onBackToHome }) => {
       .then((response) => response.json())
       .then((data) => setRaceOptions(data))
       .catch((error) => console.error("Error fetching race data:", error));
-  }, []);
+
+    // Fetch inventory data
+    fetch("http://localhost:4000/inventory")
+      .then((response) => response.json())
+      .then((data) => setAllInventory(data))
+      .catch((error) => console.error("Error fetching inventory data:", error));
+  
+    }, []);
 
 
-    // Handle dropdown changes
-    const handleDropdownChange = (e, setter, setIdSetter) => {
+  // Handle dropdown changes
+  const handleDropdownChange = (e, setter, setIdSetter) => {
     const selectedValue = parseInt(e.target.value, 10);
     setter(selectedValue);
     setIdSetter(selectedValue);
   };
-
 
   // Counter functions
   const increaseCount = (setter) => {
@@ -90,6 +103,19 @@ const SheetCreator = ({ onBackToHome }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  // Handle inventory item selection
+  const handleInventoryItemSelect = (itemId) => {
+    // Check if the item ID is already selected
+    if (selectedInventoryItemIds.includes(itemId)) {
+      // If selected, remove it from the array
+      setSelectedInventoryItemIds((prevIds) => prevIds.filter((id) => id !== itemId));
+    } else {
+      // If not selected, add it to the array
+      setSelectedInventoryItemIds((prevIds) => [...prevIds, itemId]);
+    }
+  };
+
   // Handle form submission
   const handleSectionSubmit = (e) => {
     e.preventDefault();
@@ -105,6 +131,8 @@ const SheetCreator = ({ onBackToHome }) => {
     console.log("Resilience:", resilience);
     console.log("Magic:", magic);
     console.log("Cuteness:", cuteness);
+    console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
+
   };
 
   
@@ -190,6 +218,22 @@ const SheetCreator = ({ onBackToHome }) => {
         </label>
         <br />
 
+        <div>
+        <h3>All Inventory Items</h3>
+        {allInventory.map((item) => (
+            <div key={item.id}>
+            <label>
+                <input
+                type="checkbox"
+                checked={selectedInventoryItemIds.includes(item.id)}
+                onChange={() => handleInventoryItemSelect(item.id)}
+                />
+                {item.NAME} - Type: {item.TYPE} - Description: {item.DESCRIPTION}
+            </label>
+            </div>
+        ))}
+        </div>
+
         <br />
         
         <Counter
@@ -231,5 +275,4 @@ const SheetCreator = ({ onBackToHome }) => {
     </div>
   );
 };
-
 export default SheetCreator;

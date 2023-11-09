@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
   try {
     const inventoryId = req.params.id;
 
-    const query = `SELECT * FROM CLASS WHERE id = ${inventoryId}`;
+    const query = `SELECT * FROM INVENTORY WHERE id = ${inventoryId}`;
 
     const result = await db(query);
 
