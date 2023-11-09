@@ -60,7 +60,7 @@ router.post('/', async (req, res) => {
     await db(
       `INSERT INTO INVENTORY_LIST (ITEM_ID, CHARACTER_ID) VALUES (${item_id}, ${character_id});`
     );
-
+//insert check notes
     res.status(201).json({ message: 'Item added successfully' });
   } catch (error) {
     console.error('Error adding the item to the inventory:', error);

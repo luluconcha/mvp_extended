@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
   try {
 
     const { CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, RACE, 
-      STRENGTH, DEXTERITY, RESILIENCE, MAGIC, CUTENESS } = req.body;
+      STRENGTH, DEXTERITY, RESILIENCE, MAGIC, CUTENESS, inventoryItems } = req.body;
 
     await db(
       `INSERT INTO CHARACTER_SHEET (CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, RACE, 
@@ -48,9 +48,28 @@ router.post('/', async (req, res) => {
     );
 
     const newCharacterQuery = 'SELECT * FROM CHARACTER_SHEET ORDER BY id DESC LIMIT 1';
-    const result = await db(newCharacterQuery);
+    const characterResult = await db(newCharacterQuery);
+    
+    const characterId = characterResult.data[0].id;
 
-    res.status(201).json(result.data[0]);
+    if (inventoryItems && inventoryItems.length > 0) {
+      for (const item of inventoryItems) {
+        await db(
+          `INSERT INTO INVENTORY_LIST (ITEM_ID, CHARACTER_ID) VALUES (${item}, ${characterId});`
+        );
+      }
+    }
+
+
+
+    const inventoryQuery = `SELECT * FROM INVENTORY_LIST WHERE CHARACTER_ID = ${characterId}`;
+    const inventoryResult = await db(inventoryQuery);
+
+    res.status(201).json({
+      message: 'Character and items added successfully',
+      character: characterResult.data[0],
+      inventoryItems: inventoryResult.data,
+    });
   } catch (error) {
     console.error('Error creating character sheet:', error);
     res.status(500).json({ error: 'Failed to create character sheet.' });
