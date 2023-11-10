@@ -8,20 +8,22 @@ const SheetViewer = ({ onBackToHome, characterId }) => {
   useEffect(() => {
     if (characterId) {
       // Fetch character details based on the id
-      fetch(`http://localhost:4000/character/${characterId}`)
+      fetch(`/api/character/${characterId}`)
         .then((response) => response.json())
         .then((data) => {
           setCharacterDetails(data);
           fetchClassDetails(data.CLASS);
           fetchRaceDetails(data.RACE);
         })
-        .catch((error) => console.error("Error fetching character details:", error));
+        .catch((error) =>
+          console.error("Error fetching character details:", error)
+        );
     }
   }, [characterId]);
 
   const fetchClassDetails = (classId) => {
     // Fetch class details based on the class id
-    fetch(`http://localhost:4000/class/${classId}`)
+    fetch(`/api/class/${classId}`)
       .then((response) => response.json())
       .then((data) => setClassName(data.NAME))
       .catch((error) => console.error("Error fetching class details:", error));
@@ -29,7 +31,7 @@ const SheetViewer = ({ onBackToHome, characterId }) => {
 
   const fetchRaceDetails = (raceId) => {
     // Fetch class details based on the class id
-    fetch(`http://localhost:4000/race/${raceId}`)
+    fetch(`/api/race/${raceId}`)
       .then((response) => response.json())
       .then((data) => setRaceName(data.NAME))
       .catch((error) => console.error("Error fetching class details:", error));

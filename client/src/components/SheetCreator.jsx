@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
+  <div>
     <div>
-      <div>
-        {attributeName} Count: {count}
-      </div>
-      <button onClick={increaseCount}>Increase</button>
-      <button onClick={decreaseCount}>Decrease</button>
+      {attributeName} Count: {count}
     </div>
-  );
-  
+    <button onClick={increaseCount}>Increase</button>
+    <button onClick={decreaseCount}>Decrease</button>
+  </div>
+);
 
 const SheetCreator = ({ onBackToHome }) => {
   // State to store input values
@@ -20,8 +19,10 @@ const SheetCreator = ({ onBackToHome }) => {
   // State for storing class, race, and level data
   const [classOptions, setClassOptions] = useState([]);
   const [raceOptions, setRaceOptions] = useState([]);
-  const [levelOptions] = useState(Array.from({ length: 10 }, (_, index) => index + 1));
-  
+  const [levelOptions] = useState(
+    Array.from({ length: 10 }, (_, index) => index + 1)
+  );
+
   // State for selected class, race, and level
   const [classId, setClassId] = useState("");
   const [raceId, setRaceId] = useState("");
@@ -32,7 +33,6 @@ const SheetCreator = ({ onBackToHome }) => {
   const [classDescription, setClassDescription] = useState("");
   const [selectedRaceId, setSelectedRaceId] = useState("");
   const [raceDescription, setRaceDescription] = useState("");
-  
 
   // Counter state for attributes
   const [strength, setStrength] = useState(1);
@@ -47,7 +47,6 @@ const SheetCreator = ({ onBackToHome }) => {
   // State for inventory items
   const [allInventory, setAllInventory] = useState([]);
 
-  
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -68,40 +67,48 @@ const SheetCreator = ({ onBackToHome }) => {
 
   useEffect(() => {
     // Fetch class data
-    fetch("http://localhost:4000/class")
+    fetch("/api/class")
       .then((response) => response.json())
       .then((data) => setClassOptions(data))
       .catch((error) => console.error("Error fetching class data:", error));
 
     // Fetch race data
-    fetch("http://localhost:4000/race")
+    fetch("/api/race")
       .then((response) => response.json())
       .then((data) => setRaceOptions(data))
       .catch((error) => console.error("Error fetching race data:", error));
 
     // Fetch inventory data
-    fetch("http://localhost:4000/inventory")
+    fetch("/api/inventory")
       .then((response) => response.json())
       .then((data) => setAllInventory(data))
       .catch((error) => console.error("Error fetching inventory data:", error));
-  
-    }, []);
-
+  }, []);
 
   // Handle dropdown changes
-  const handleDropdownChange = (e, setter, setIdSetter, setDescriptionSetter, containerType) => {
+  const handleDropdownChange = (
+    e,
+    setter,
+    setIdSetter,
+    setDescriptionSetter,
+    containerType
+  ) => {
     const selectedValue = parseInt(e.target.value, 10);
 
     // Check the container type and update the appropriate state
     switch (containerType) {
       case "class":
-        const selectedClass = classOptions.find((classItem) => classItem.id === selectedValue);
+        const selectedClass = classOptions.find(
+          (classItem) => classItem.id === selectedValue
+        );
         setter(selectedValue);
         setIdSetter(selectedValue);
         setDescriptionSetter(selectedClass ? selectedClass.DESCRIPTION : "");
         break;
       case "race":
-        const selectedRace = raceOptions.find((raceItem) => raceItem.id === selectedValue);
+        const selectedRace = raceOptions.find(
+          (raceItem) => raceItem.id === selectedValue
+        );
         setter(selectedValue);
         setIdSetter(selectedValue);
         setDescriptionSetter(selectedRace ? selectedRace.DESCRIPTION : "");
@@ -128,7 +135,9 @@ const SheetCreator = ({ onBackToHome }) => {
     // Check if the item ID is already selected
     if (selectedInventoryItemIds.includes(itemId)) {
       // If selected, remove it from the array
-      setSelectedInventoryItemIds((prevIds) => prevIds.filter((id) => id !== itemId));
+      setSelectedInventoryItemIds((prevIds) =>
+        prevIds.filter((id) => id !== itemId)
+      );
     } else {
       // If not selected, add it to the array
       setSelectedInventoryItemIds((prevIds) => [...prevIds, itemId]);
@@ -169,10 +178,8 @@ const SheetCreator = ({ onBackToHome }) => {
     console.log("Magic:", magic);
     console.log("Cuteness:", cuteness);
     console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
-
   };
 
-  
   return (
     <div>
       <button onClick={onBackToHome}>Back to Home Page</button>
@@ -207,10 +214,18 @@ const SheetCreator = ({ onBackToHome }) => {
         </label>
         {/* Dropdown for class selection */}
         <label>
-        Class:
+          Class:
           <select
             value={classId}
-            onChange={(e) => handleDropdownChange(e, setClassId, setSelectedClassId, setClassDescription, "class")}
+            onChange={(e) =>
+              handleDropdownChange(
+                e,
+                setClassId,
+                setSelectedClassId,
+                setClassDescription,
+                "class"
+              )
+            }
           >
             <option value="">Select Class</option>
             {classOptions.map((classItem) => (
@@ -231,7 +246,15 @@ const SheetCreator = ({ onBackToHome }) => {
           Race:
           <select
             value={raceId}
-            onChange={(e) => handleDropdownChange(e, setRaceId, setSelectedRaceId, setRaceDescription, "race")}
+            onChange={(e) =>
+              handleDropdownChange(
+                e,
+                setRaceId,
+                setSelectedRaceId,
+                setRaceDescription,
+                "race"
+              )
+            }
           >
             <option value="">Select Race</option>
             {raceOptions.map((raceItem) => (
@@ -252,35 +275,38 @@ const SheetCreator = ({ onBackToHome }) => {
           Level:
           <select
             value={selectedLevel}
-            onChange={(e) => handleDropdownChange(e, setSelectedLevel, () => {})}
-            >
+            onChange={(e) =>
+              handleDropdownChange(e, setSelectedLevel, () => {})
+            }
+          >
             {levelOptions.map((level) => (
-            <option key={level} value={level}>
+              <option key={level} value={level}>
                 {level}
-            </option>
+              </option>
             ))}
           </select>
         </label>
         <br />
 
         <div>
-        <h3>All Inventory Items</h3>
-        {allInventory.map((item) => (
+          <h3>All Inventory Items</h3>
+          {allInventory.map((item) => (
             <div key={item.id}>
-            <label>
+              <label>
                 <input
-                type="checkbox"
-                checked={selectedInventoryItemIds.includes(item.id)}
-                onChange={() => handleInventoryItemSelect(item.id)}
+                  type="checkbox"
+                  checked={selectedInventoryItemIds.includes(item.id)}
+                  onChange={() => handleInventoryItemSelect(item.id)}
                 />
-                {item.NAME} - Type: {item.TYPE} - Description: {item.DESCRIPTION}
-            </label>
+                {item.NAME} - Type: {item.TYPE} - Description:{" "}
+                {item.DESCRIPTION}
+              </label>
             </div>
-        ))}
+          ))}
         </div>
 
         <br />
-        
+
         <Counter
           attributeName="Strength"
           count={strength}
@@ -311,11 +337,9 @@ const SheetCreator = ({ onBackToHome }) => {
           increaseCount={() => increaseCount(setCuteness)}
           decreaseCount={() => decreaseCount(setCuteness)}
         />
-
-        
       </form>
       <form onSubmit={handleSectionSubmit}>
-      <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

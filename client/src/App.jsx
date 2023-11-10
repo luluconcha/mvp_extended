@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SheetViewer from "./components/SheetViewer";
 import SheetCreator from "./components/SheetCreator";
-import './App.css';
+import "./App.css";
 
 function App() {
   const [currentView, setCurrentView] = useState("home");
@@ -9,10 +9,12 @@ function App() {
   const [characterSheets, setCharacterSheets] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/character")
+    fetch("/api/character")
       .then((response) => response.json())
       .then((data) => setCharacterSheets(data))
-      .catch((error) => console.error("Error fetching character sheets:", error));
+      .catch((error) =>
+        console.error("Error fetching character sheets:", error)
+      );
   }, []);
 
   const handleViewChange = (view, characterId = null) => {
@@ -37,7 +39,10 @@ function App() {
             <h2>Character Sheets</h2>
             <ul>
               {characterSheets.map((sheet) => (
-                <li key={sheet.id} onClick={() => handleViewChange("sheetViewer", sheet.id)}>
+                <li
+                  key={sheet.id}
+                  onClick={() => handleViewChange("sheetViewer", sheet.id)}
+                >
                   {sheet.CHARACTER_NAME}
                 </li>
               ))}
@@ -47,7 +52,12 @@ function App() {
       case "sheetCreator":
         return <SheetCreator onBackToHome={handleBackToHome} />;
       case "sheetViewer":
-        return <SheetViewer onBackToHome={handleBackToHome} characterId={selectedCharacterId} />;
+        return (
+          <SheetViewer
+            onBackToHome={handleBackToHome}
+            characterId={selectedCharacterId}
+          />
+        );
       default:
         return null;
     }
