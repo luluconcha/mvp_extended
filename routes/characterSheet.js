@@ -60,8 +60,6 @@ router.post('/', async (req, res) => {
       }
     }
 
-
-
     const inventoryQuery = `SELECT * FROM INVENTORY_LIST WHERE CHARACTER_ID = ${characterId}`;
     const inventoryResult = await db(inventoryQuery);
 

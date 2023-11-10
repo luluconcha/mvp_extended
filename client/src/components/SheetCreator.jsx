@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
   <div>
@@ -10,7 +12,8 @@ const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
   </div>
 );
 
-const SheetCreator = ({ onBackToHome }) => {
+const SheetCreator = () => {
+  const navigate = useNavigate();
   // State to store input values
   const [characterName, setCharacterName] = useState("");
   const [pronouns, setPronouns] = useState("");
@@ -86,7 +89,7 @@ const SheetCreator = ({ onBackToHome }) => {
   }, []);
 
   // Handle dropdown changes
-  const handleDropdownChange = (
+  const handleDropdownChange = async (
     e,
     setter,
     setIdSetter,
@@ -94,27 +97,29 @@ const SheetCreator = ({ onBackToHome }) => {
     containerType
   ) => {
     const selectedValue = parseInt(e.target.value, 10);
-
-    // Check the container type and update the appropriate state
-    switch (containerType) {
-      case "class":
-        const selectedClass = classOptions.find(
-          (classItem) => classItem.id === selectedValue
-        );
-        setter(selectedValue);
-        setIdSetter(selectedValue);
-        setDescriptionSetter(selectedClass ? selectedClass.DESCRIPTION : "");
-        break;
-      case "race":
-        const selectedRace = raceOptions.find(
-          (raceItem) => raceItem.id === selectedValue
-        );
-        setter(selectedValue);
-        setIdSetter(selectedValue);
-        setDescriptionSetter(selectedRace ? selectedRace.DESCRIPTION : "");
-        break;
-      default:
-        break;
+  
+    try {
+      // Check the container type and update the appropriate state
+      switch (containerType) {
+        case "class":
+          const classResponse = await fetch(`/api/class/${selectedValue}`);
+          const selectedClass = await classResponse.json();
+          setter(selectedValue);
+          setIdSetter(selectedValue);
+          setDescriptionSetter(selectedClass ? selectedClass.DESCRIPTION : "");
+          break;
+        case "race":
+          const raceResponse = await fetch(`/api/race/${selectedValue}`);
+          const selectedRace = await raceResponse.json();
+          setter(selectedValue);
+          setIdSetter(selectedValue);
+          setDescriptionSetter(selectedRace ? selectedRace.DESCRIPTION : "");
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -144,6 +149,11 @@ const SheetCreator = ({ onBackToHome }) => {
     }
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
+
   // Handle form submission
   // const handleSectionSubmit = (e) => {
   //   e.preventDefault();
@@ -160,30 +170,61 @@ const SheetCreator = ({ onBackToHome }) => {
   //   console.log("Magic:", magic);
   //   console.log("Cuteness:", cuteness);
   //   console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
-
   // };
 
-  const handleSectionSubmit = (e) => {
+
+  const handleSectionSubmit = async (e) => {
     e.preventDefault();
-    // Log the stored data
-    console.log("Character Name:", characterName);
-    console.log("Pronouns:", pronouns);
-    console.log("Background:", background);
-    console.log("Selected Class ID:", selectedClassId);
-    console.log("Selected Race ID:", selectedRaceId);
-    console.log("Selected Level:", selectedLevel);
-    console.log("Strength:", strength);
-    console.log("Dexterity:", dexterity);
-    console.log("Resilience:", resilience);
-    console.log("Magic:", magic);
-    console.log("Cuteness:", cuteness);
-    console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
+  
+    try {
+      // Log the stored data
+      console.log("Character Name:", characterName);
+      console.log("Pronouns:", pronouns);
+      console.log("Background:", background);
+      console.log("Selected Class ID:", selectedClassId);
+      console.log("Selected Race ID:", selectedRaceId);
+      console.log("Selected Level:", selectedLevel);
+      console.log("Strength:", strength);
+      console.log("Dexterity:", dexterity);
+      console.log("Resilience:", resilience);
+      console.log("Magic:", magic);
+      console.log("Cuteness:", cuteness);
+      console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
+  
+      // Make a POST request to your endpoint
+      const response = await fetch('/api/character', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          CHARACTER_NAME: characterName,
+          PRONOUNS: pronouns,
+          BACKGROUND: background,
+          LEVEL: selectedLevel,
+          CLASS: selectedClassId,
+          RACE: selectedRaceId,
+          STRENGTH: strength,
+          DEXTERITY: dexterity,
+          RESILIENCE: resilience,
+          MAGIC: magic,
+          CUTENESS: cuteness,
+          inventoryItems: selectedInventoryItemIds,
+        }),
+      });
+  
+      // Handle the response from the server
+      const data = await response.json();
+      console.log(data); // Log the response from the server
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
   };
 
   return (
     <div>
-      <button onClick={onBackToHome}>Back to Home Page</button>
-      <form onSubmit={handleSubmit}>
+      <button onClick={handleBackToHome}>Back to Home Page</button>
+        <form onSubmit={handleSubmit}>
         <label>
           Character Name:
           <input
@@ -275,9 +316,10 @@ const SheetCreator = ({ onBackToHome }) => {
           Level:
           <select
             value={selectedLevel}
-            onChange={(e) =>
-              handleDropdownChange(e, setSelectedLevel, () => {})
-            }
+            onChange={(e) => {
+              const selectedValue = e.target.value;
+              setSelectedLevel(selectedValue);
+            }}
           >
             {levelOptions.map((level) => (
               <option key={level} value={level}>
