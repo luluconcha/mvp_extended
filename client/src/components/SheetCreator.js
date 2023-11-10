@@ -29,7 +29,10 @@ const SheetCreator = ({ onBackToHome }) => {
 
   // New state variables for selected class and race IDs
   const [selectedClassId, setSelectedClassId] = useState("");
+  const [classDescription, setClassDescription] = useState("");
   const [selectedRaceId, setSelectedRaceId] = useState("");
+  const [raceDescription, setRaceDescription] = useState("");
+  
 
   // Counter state for attributes
   const [strength, setStrength] = useState(1);
@@ -86,10 +89,26 @@ const SheetCreator = ({ onBackToHome }) => {
 
 
   // Handle dropdown changes
-  const handleDropdownChange = (e, setter, setIdSetter) => {
+  const handleDropdownChange = (e, setter, setIdSetter, setDescriptionSetter, containerType) => {
     const selectedValue = parseInt(e.target.value, 10);
-    setter(selectedValue);
-    setIdSetter(selectedValue);
+
+    // Check the container type and update the appropriate state
+    switch (containerType) {
+      case "class":
+        const selectedClass = classOptions.find((classItem) => classItem.id === selectedValue);
+        setter(selectedValue);
+        setIdSetter(selectedValue);
+        setDescriptionSetter(selectedClass ? selectedClass.DESCRIPTION : "");
+        break;
+      case "race":
+        const selectedRace = raceOptions.find((raceItem) => raceItem.id === selectedValue);
+        setter(selectedValue);
+        setIdSetter(selectedValue);
+        setDescriptionSetter(selectedRace ? selectedRace.DESCRIPTION : "");
+        break;
+      default:
+        break;
+    }
   };
 
   // Counter functions
@@ -170,11 +189,11 @@ const SheetCreator = ({ onBackToHome }) => {
         </label>
         {/* Dropdown for class selection */}
         <label>
-          Class:
+        Class:
           <select
             value={classId}
-            onChange={(e) => handleDropdownChange(e, setClassId, setSelectedClassId)}
-            >
+            onChange={(e) => handleDropdownChange(e, setClassId, setSelectedClassId, setClassDescription, "class")}
+          >
             <option value="">Select Class</option>
             {classOptions.map((classItem) => (
               <option key={classItem.id} value={classItem.id}>
@@ -182,6 +201,10 @@ const SheetCreator = ({ onBackToHome }) => {
               </option>
             ))}
           </select>
+          <div>
+            <h3>Selected Class Description</h3>
+            <p>{classDescription}</p>
+          </div>
         </label>
         <br />
 
@@ -190,8 +213,8 @@ const SheetCreator = ({ onBackToHome }) => {
           Race:
           <select
             value={raceId}
-            onChange={(e) => handleDropdownChange(e, setRaceId, setSelectedRaceId)}
-            >
+            onChange={(e) => handleDropdownChange(e, setRaceId, setSelectedRaceId, setRaceDescription, "race")}
+          >
             <option value="">Select Race</option>
             {raceOptions.map((raceItem) => (
               <option key={raceItem.id} value={raceItem.id}>
@@ -199,6 +222,10 @@ const SheetCreator = ({ onBackToHome }) => {
               </option>
             ))}
           </select>
+          <div>
+            <h3>Selected Race Description</h3>
+            <p>{raceDescription}</p>
+          </div>
         </label>
         <br />
 
