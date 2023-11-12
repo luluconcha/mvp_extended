@@ -216,6 +216,8 @@ const SheetCreator = () => {
       // Handle the response from the server
       const data = await response.json();
       console.log(data); // Log the response from the server
+      navigate("/");
+      window.location.reload(true);
     } catch (error) {
       console.error('Error submitting data:', error);
     }
