@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SheetCreator.css"
 
 
 const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
@@ -7,8 +8,8 @@ const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
     <div>
       {attributeName} Count: {count}
     </div>
-    <button onClick={increaseCount}>Increase</button>
-    <button onClick={decreaseCount}>Decrease</button>
+    <button className="btn btn-outline-dark" onClick={decreaseCount}>-</button>
+    <button className="btn btn-outline-dark" onClick={increaseCount}>+</button>
   </div>
 );
 
@@ -217,7 +218,6 @@ const SheetCreator = () => {
       const data = await response.json();
       console.log(data); // Log the response from the server
       navigate("/");
-      window.location.reload(true);
     } catch (error) {
       console.error('Error submitting data:', error);
     }
@@ -225,7 +225,7 @@ const SheetCreator = () => {
 
   return (
     <div>
-      <button onClick={handleBackToHome}>Back to Home Page</button>
+      <button className="btn btn-info" onClick={handleBackToHome}>Back to Home Page</button>
         <form onSubmit={handleSubmit}>
         <label>
           Character Name:
@@ -383,7 +383,7 @@ const SheetCreator = () => {
         />
       </form>
       <form onSubmit={handleSectionSubmit}>
-        <button type="submit">Submit</button>
+        <button className="btn custom-btn" type="submit">Submit</button>
       </form>
     </div>
   );

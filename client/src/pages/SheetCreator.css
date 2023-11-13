@@ -1,0 +1,10 @@
+/* Add your custom styles */
+.custom-btn {
+    background-color: rgb(255, 109, 248) !important; /* Use !important to override Bootstrap styles */
+    /* Additional styling if needed */
+  }
+  
+  .custom-btn:hover {
+    background-color: fuchsia !important; /* Use !important to override Bootstrap styles */
+    /* Additional styling on hover if needed */
+  }
