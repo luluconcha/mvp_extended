@@ -1,10 +1,156 @@
-/* Add your custom styles */
+
+
 .custom-btn {
-    background-color: rgb(255, 109, 248) !important; /* Use !important to override Bootstrap styles */
-    /* Additional styling if needed */
-  }
-  
-  .custom-btn:hover {
-    background-color: fuchsia !important; /* Use !important to override Bootstrap styles */
-    /* Additional styling on hover if needed */
-  }
+  background-color: rgb(255, 109, 248) !important; /* Use !important to override Bootstrap styles */
+  /* Additional styling if needed */
+}
+
+.custom-btn:hover {
+  background-color: fuchsia !important; /* Use !important to override Bootstrap styles */
+  /* Additional styling on hover if needed */
+}
+
+/* Pinky neon princess style for character name, pronouns, and background */
+.continent label {
+  color: fuchsia !important;
+  font-size: 18px !important;
+  margin-bottom: 8px !important;
+}
+
+input[type="text"],
+textarea {
+  background-color: #ffebf7 !important; /* Light pink background for text inputs and textarea */
+  border: 1px solid fuchsia !important; /* Fuchsia border */
+  color: fuchsia !important; /* Fuchsia text color */
+  padding: 8px !important; /* Adjust padding as needed */
+  border-radius: 5px !important; /* Rounded corners */
+  width: 100% !important; /* Make inputs and textarea full-width */
+  margin-bottom: 15px !important; /* Adjust spacing between inputs and textarea */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none !important; /* Remove focus outline */
+  box-shadow: 0 0 5px rgba(255, 102, 178, 0.7) !important; /* Pink shadow on focus */
+}
+
+/* Optional: Pink underline on focus for text inputs */
+input[type="text"]:focus {
+  border-bottom: 2px solid fuchsia !important; /* Fuchsia underline on focus */
+}
+
+/* Optional: Fuchsia border on focus for textarea */
+textarea:focus {
+  border: 1px solid fuchsia !important; /* Fuchsia border on focus */
+}
+
+/* Optional: Fuchsia placeholder color */
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: fuchsia !important; /* Fuchsia placeholder color */
+}
+
+/* Optional: Add fuchsia border to the selected dropdown option */
+select:focus {
+  border: 1px solid fuchsia !important; /* Fuchsia border on focus */
+}
+
+/* Optional: Fuchsia color for selected dropdown option */
+select option:checked {
+  background-color: fuchsia !important; /* Fuchsia background for selected option */
+  color: #fff !important; /* White text color for selected option */
+}
+
+/* Optional: Fuchsia hover color for dropdown options */
+select option:hover {
+  background-color: #ff3399 !important; /* Darker fuchsia hover color for options */
+  color: #fff !important; /* White text color on hover */
+}
+
+select:focus {
+  border-bottom: 2px solid fuchsia !important; /* Fuchsia underline on focus */
+}
+
+/* Optional: Fuchsia border on focus for options within dropdowns */
+select option:focus {
+  border: 1px solid fuchsia !important; /* Fuchsia border on focus */
+}
+
+/* Optional: Fuchsia color for selected dropdown option */
+select option:checked {
+  background-color: #ff3399 !important; /* Darker fuchsia background for selected option */
+  color: #fff !important; /* White text color for selected option */
+}
+
+/* Optional: Fuchsia hover color for dropdown options */
+select option:hover {
+  background-color: #ff3399 !important; /* Darker fuchsia hover color for options */
+  color: #fff !important; /* White text color on hover */
+}
+
+/* Optional: Custom styling for dropdowns */
+select {
+  background-color: #ffebf7 !important; /* Light pink background for dropdown */
+  border: 1px solid fuchsia !important; /* Fuchsia border for dropdown */
+  color: fuchsia !important; /* Fuchsia text color for dropdown */
+  padding: 8px !important; /* Adjust padding as needed */
+  border-radius: 5px !important; /* Rounded corners for dropdown */
+  width: 100% !important; /* Make dropdown full-width */
+  margin-bottom: 15px !important; /* Adjust spacing for dropdown */
+}
+
+h3 {
+  color: fuchsia !important; /* Fuchsia color for the title */
+  font-size: 24px !important; /* Adjust font size as needed */
+  margin-bottom: 10px !important; /* Adjust spacing below the title */
+}
+
+div p {
+  color: #ff66ff !important; /* Neon-like color for descriptions */
+}
+
+.inventory-description {
+  color: #ff66ff !important; /* Neon-like color for displayed descriptions */
+}
+
+.counter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px !important;
+}
+
+.counter-label {
+  font-size: 18px;
+  color: #ff66ff !important; /* Neon-like color for counter labels */
+  margin: 5px !important;
+}
+
+.counter-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.counter-btn {
+  background-color: #ff66ff !important; /* Neon-like color for counter buttons */
+  color: #fff !important; /* White text color */
+  border: none !important;
+  padding: 8px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  margin: 0 5px !important;
+}
+
+.counter-btn:hover {
+  background-color: #ff3399 !important; /* Darker neon-like color on hover */
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; 
+}
+
+.btn-container button {
+  margin: 0 10px; 
+}

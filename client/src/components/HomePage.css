@@ -1,11 +1,58 @@
+.text-fuchsia {
+  color: #ff00ff !important;
+}
+
+.btn-outline-danger {
+  margin-left: 5px; 
+  color: #ff66b2 !important;
+  border-color: #ff66b2 !important;
+}
+
+.btn-outline-danger:hover {
+  background-color: black !important;
+  color: #ff3399 !important;
+  border-color: #ff3399 !important;
+}
+
+.btn.custom-btn {
+  background-color: #DFFF00 !important;
+  color: #333; 
+  border: 2px solid #ff66b2 !important; 
+}
+
+.btn.custom-btn:hover {
+  color: #333;
+  background-color: #ff3399 !important; 
+  border: 2px solid #ff3399 !important; 
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px; 
+}
+
 .row1 {
-    display: flex;
-    align-items: center; /* Vertically center the content within the row */
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .smaller-button {
-    width: 25px; /* Adjust the width to your desired size */
-    height: 25px; /* Adjust the height to your desired size */
- 
+  
 
-  }
+
+.character-sheet-link {
+  text-decoration: none !important; 
+  color: #ff7dbe !important; 
+}
+
+.character-sheet-link:visited {
+  color: #DFFF00 !important; 
+}
+
+.character-sheet-link:hover {
+  text-decoration: underline !important; 
+}

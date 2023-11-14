@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SheetCreator.css"
+import { Button } from 'react-bootstrap';
+
 
 
 const Counter = ({ attributeName, count, increaseCount, decreaseCount }) => (
-  <div>
-    <div>
-      {attributeName} Count: {count}
+  <div className="counter-container">
+    <div className="counter-label">
+      {attributeName} Count: 
     </div>
-    <button className="btn btn-outline-dark" onClick={decreaseCount}>-</button>
-    <button className="btn btn-outline-dark" onClick={increaseCount}>+</button>
+    <div className="counter-buttons">
+      <button className="counter-btn" onClick={() => decreaseCount()}>
+        -
+      </button>
+      <div className="counter-label">{count}</div>
+      <button className="counter-btn" onClick={() => increaseCount()}>
+        +
+      </button>
+    </div>
   </div>
 );
 
@@ -224,125 +233,150 @@ const SheetCreator = () => {
   };
 
   return (
+    <div className="container">
+    <div className="continent">
     <div>
-      <button className="btn btn-info" onClick={handleBackToHome}>Back to Home Page</button>
-        <form onSubmit={handleSubmit}>
-        <label>
-          Character Name:
-          <input
-            type="text"
-            name="characterName"
-            value={characterName}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Pronouns:
-          <input
-            type="text"
-            name="pronouns"
-            value={pronouns}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Background:
-          <textarea
-            name="background"
-            value={background}
-            onChange={handleInputChange}
-          />
-        </label>
+    <div className="btn-container">
+    <div className="d-flex justify-content-center align-items-center">
+    <button className="btn btn-info" onClick={handleBackToHome}>
+      Back to Home Page
+    </button>
+    </div>        
+    </div>        
+    <form onSubmit={handleSubmit}>
+        <div className="row mb-3">
+        <div className="col">
+          <label>
+            Character Name:
+            <input
+              type="text"
+              name="characterName"
+              value={characterName}
+              onChange={handleInputChange}
+              className="form-control"
+            />
+          </label>
+        </div>
+        <div className="col">
+          <label>
+            Pronouns:
+            <input
+              type="text"
+              name="pronouns"
+              value={pronouns}
+              onChange={handleInputChange}
+              className="form-control"
+            />
+          </label>
+        </div>
+        <div className="col">
+          <label>
+            Background:
+            <textarea
+              name="background"
+              value={background}
+              onChange={handleInputChange}
+              className="form-control"
+              style={{ width: '100%' }}
+            />
+          </label>
+        </div>
+      </div>
         {/* Dropdown for class selection */}
-        <label>
-          Class:
-          <select
-            value={classId}
-            onChange={(e) =>
-              handleDropdownChange(
-                e,
-                setClassId,
-                setSelectedClassId,
-                setClassDescription,
-                "class"
-              )
-            }
-          >
-            <option value="">Select Class</option>
-            {classOptions.map((classItem) => (
-              <option key={classItem.id} value={classItem.id}>
-                {classItem.NAME}
-              </option>
-            ))}
-          </select>
-          <div>
-            <h3>Selected Class Description</h3>
-            <p>{classDescription}</p>
-          </div>
-        </label>
-        <br />
+        <div className="row mb-3">
+        <div className="col-5">
+          <label>
+            Class:
+            <select
+              value={classId}
+              onChange={(e) =>
+                handleDropdownChange(
+                  e,
+                  setClassId,
+                  setSelectedClassId,
+                  setClassDescription,
+                  "class"
+                )
+              }
+              className="form-select"
+            >
+              <option value="">Select Class</option>
+              {classOptions.map((classItem) => (
+                <option key={classItem.id} value={classItem.id}>
+                  {classItem.NAME}
+                </option>
+              ))}
+            </select>
+            <div>
+              <h3>Selected Class Description</h3>
+              <p>{classDescription}</p>
+            </div>
+          </label>
+        </div>
 
-        {/* Dropdown for race selection */}
-        <label>
-          Race:
-          <select
-            value={raceId}
-            onChange={(e) =>
-              handleDropdownChange(
-                e,
-                setRaceId,
-                setSelectedRaceId,
-                setRaceDescription,
-                "race"
-              )
-            }
-          >
-            <option value="">Select Race</option>
-            {raceOptions.map((raceItem) => (
-              <option key={raceItem.id} value={raceItem.id}>
-                {raceItem.NAME}
-              </option>
-            ))}
-          </select>
-          <div>
-            <h3>Selected Race Description</h3>
-            <p>{raceDescription}</p>
-          </div>
-        </label>
-        <br />
+        <div className="col-1">
+          <label>
+            Level:
+            <select
+              value={selectedLevel}
+              onChange={(e) => {
+                const selectedValue = e.target.value;
+                setSelectedLevel(selectedValue);
+              }}
+              className="form-select"
+            >
+              {levelOptions.map((level) => (
+                <option key={level} value={level}>
+                  {level}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
 
-        {/* Dropdown for level selection */}
-        <label>
-          Level:
-          <select
-            value={selectedLevel}
-            onChange={(e) => {
-              const selectedValue = e.target.value;
-              setSelectedLevel(selectedValue);
-            }}
-          >
-            {levelOptions.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="col-5">
+          <label>
+            Race:
+            <select
+              value={raceId}
+              onChange={(e) =>
+                handleDropdownChange(
+                  e,
+                  setRaceId,
+                  setSelectedRaceId,
+                  setRaceDescription,
+                  "race"
+                )
+              }
+              className="form-select"
+            >
+              <option value="">Select Race</option>
+              {raceOptions.map((raceItem) => (
+                <option key={raceItem.id} value={raceItem.id}>
+                  {raceItem.NAME}
+                </option>
+              ))}
+            </select>
+            <div>
+              <h3>Selected Race Description</h3>
+              <p>{raceDescription}</p>
+            </div>
+          </label>
+        </div>
+      </div>
         <br />
 
         <div>
           <h3>All Inventory Items</h3>
           {allInventory.map((item) => (
             <div key={item.id}>
-              <label>
+              <label className="inventory-description">
                 <input
                   type="checkbox"
                   checked={selectedInventoryItemIds.includes(item.id)}
                   onChange={() => handleInventoryItemSelect(item.id)}
                 />
-                {item.NAME} - Type: {item.TYPE} - Description:{" "}
+                <span style={{ color: '#DFFF00'}}>{item.NAME}</span> - Type: {item.TYPE} - Description:{" "}
                 {item.DESCRIPTION}
               </label>
             </div>
@@ -350,7 +384,7 @@ const SheetCreator = () => {
         </div>
 
         <br />
-
+        
         <Counter
           attributeName="Strength"
           count={strength}
@@ -383,8 +417,14 @@ const SheetCreator = () => {
         />
       </form>
       <form onSubmit={handleSectionSubmit}>
+      <div className="btn-container">
+        <div className="d-flex justify-content-center align-items-center">
         <button className="btn custom-btn" type="submit">Submit</button>
+      </div>
+      </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 };

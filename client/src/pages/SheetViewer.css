@@ -1,27 +1,26 @@
-.attribute-label {
-    background-color: fuchsia;
-    color: white;
-    padding: 5px;
-    border: 2px solid fuchsia;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
+.SheetViewer .attribute-label {
+  background-color: fuchsia;
+  color: #DFFF00;
+  padding: 5px;
+  border: 2px solid fuchsia;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
 
-  }
-  
-  .attribute-number {
-    background-color: fuchsia;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: flex-end;
-    flex-direction: ;
-    justify-content: space-around;
-    margin-bottom: 10px;
-    width: 75px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
+.SheetViewer .attribute-number {
+  background-color: fuchsia;
+  color: #DFFF00;
+  border-radius: 50%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: ;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  width: 75px;
+  margin-left: auto;
+  margin-right: auto;
+}
+

@@ -80,29 +80,31 @@ const SheetViewer = () => {
   };
 
   return (
-    <Container>
-      <h1>Sheet Viewer</h1>
-      <Button className="btn btn-info" onClick={handleBackToHome}>
+    <Container className="SheetViewer">
+      <Button className="btn btn-info mt-3 mx-auto d-block" onClick={handleBackToHome}>
         Back to Home Page
-      </Button>
+      </Button> 
+
+      <h1 style={{ color: 'fuchsia', textDecoration: 'underline' }}>Character Sheet</h1>
+      
 
       {characterDetails && (
         <Row>
           <Col xs={12} md={9}>
             <div>
-              <h2>Name: {characterDetails.CHARACTER_NAME}</h2>
-              <h2>Pronouns: {characterDetails.PRONOUNS}</h2>
-              <h2>Background: {characterDetails.BACKGROUND}</h2>
-              <h2>Class: {className}</h2>
-              <p>{classDescription}</p>
-              <h2>Race: {raceName}</h2>
-              <p>{raceDescription}</p>
-              <h2>Level: {characterDetails.LEVEL}</h2>
-              <h2>Inventory:</h2>
+            <h2 style={{ color: 'fuchsia' }}>Name: <span style={{ color: '#DFFF00', fontSize: '23px' }}>{characterDetails.CHARACTER_NAME}</span></h2>
+          <h2 style={{ color: 'fuchsia' }}>Pronouns: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{characterDetails.PRONOUNS}</span></h2>
+          <h2 style={{ color: 'fuchsia' }}>Background: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{characterDetails.BACKGROUND}</span></h2>
+          <h2 style={{ color: 'fuchsia' }}>Class: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{className}</span></h2>
+          <p style={{ color: 'fuchsia' }}>{classDescription}</p>
+          <h2 style={{ color: 'fuchsia' }}>Race: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{raceName}</span></h2>
+          <p style={{ color: 'fuchsia' }}>{raceDescription}</p>
+          <h2 style={{ color: 'fuchsia' }}>Level: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{characterDetails.LEVEL}</span></h2>
+          <h2 style={{ color: 'fuchsia' }}>Inventory:</h2>
               <ul>
                 {inventoryItems.map((item) => (
-                  <li key={item.id}>
-                    {item.NAME}: {item.DESCRIPTION}
+                  <li key={item.id} style={{ color: 'fuchsia' }}>
+                    <span style={{ color: '#DFFF00' }}>{item.NAME}:</span> {item.DESCRIPTION}
                   </li>
                 ))}
               </ul>
