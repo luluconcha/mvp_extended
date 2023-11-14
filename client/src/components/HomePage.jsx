@@ -43,7 +43,7 @@ const HomePage = () => {
 
   return (
     <div className="container text-center mt-5">
-      <h1 className="text-fuchsia">Home Page</h1>
+      <h1 className="text-fuchsia">Cotton Candy Land</h1>
       <Link to="/sheetCreator">
         <button className="btn custom-btn m-3">Create Character Sheet</button>
       </Link>

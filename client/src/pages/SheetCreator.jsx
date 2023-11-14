@@ -56,6 +56,8 @@ const SheetCreator = () => {
 
   // New state for the array of selected inventory item IDs
   const [selectedInventoryItemIds, setSelectedInventoryItemIds] = useState([]);
+  const [selectedItemDescription, setSelectedItemDescription] = useState(null);
+
 
   // State for inventory items
   const [allInventory, setAllInventory] = useState([]);
@@ -146,16 +148,18 @@ const SheetCreator = () => {
   };
 
   // Handle inventory item selection
-  const handleInventoryItemSelect = (itemId) => {
+  const handleInventoryItemSelect = (itemId, itemDescription) => {
     // Check if the item ID is already selected
     if (selectedInventoryItemIds.includes(itemId)) {
-      // If selected, remove it from the array
+      // If selected, remove it from the array and clear the description
       setSelectedInventoryItemIds((prevIds) =>
         prevIds.filter((id) => id !== itemId)
       );
+      setSelectedItemDescription(null);
     } else {
-      // If not selected, add it to the array
+      // If not selected, add it to the array and set the description
       setSelectedInventoryItemIds((prevIds) => [...prevIds, itemId]);
+      setSelectedItemDescription(itemDescription);
     }
   };
 
@@ -369,15 +373,17 @@ const SheetCreator = () => {
         <div>
           <h3>All Inventory Items</h3>
           {allInventory.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} >
               <label className="inventory-description">
                 <input
                   type="checkbox"
                   checked={selectedInventoryItemIds.includes(item.id)}
-                  onChange={() => handleInventoryItemSelect(item.id)}
+                  onChange={() => handleInventoryItemSelect(item.id, item.DESCRIPTION)}
                 />
-                <span style={{ color: '#DFFF00'}}>{item.NAME}</span> - Type: {item.TYPE} - Description:{" "}
-                {item.DESCRIPTION}
+                <span style={{ color: '#DFFF00' }}>{item.NAME}</span> - Type: {item.TYPE} 
+                {selectedItemDescription && selectedInventoryItemIds.includes(item.id) && (
+                  <span> - Description:{" "}{item.DESCRIPTION}</span>
+                )}
               </label>
             </div>
           ))}
