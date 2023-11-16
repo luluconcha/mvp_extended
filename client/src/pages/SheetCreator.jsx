@@ -29,23 +29,23 @@ const SheetCreator = () => {
   const [pronouns, setPronouns] = useState("");
   const [background, setBackground] = useState("");
 
-  // State for storing class, race, and level data
+  // State for storing class, type, and level data
   const [classOptions, setClassOptions] = useState([]);
-  const [raceOptions, setRaceOptions] = useState([]);
+  const [typeOptions, setTypeOptions] = useState([]);
   const [levelOptions] = useState(
     Array.from({ length: 10 }, (_, index) => index + 1)
   );
 
-  // State for selected class, race, and level
+  // State for selected class, type, and level
   const [classId, setClassId] = useState("");
-  const [raceId, setRaceId] = useState("");
+  const [typeId, setTypeId] = useState("");
   const [selectedLevel, setSelectedLevel] = useState(1);
 
-  // New state variables for selected class and race IDs
+  // New state variables for selected class and type IDs
   const [selectedClassId, setSelectedClassId] = useState("");
   const [classDescription, setClassDescription] = useState("");
-  const [selectedRaceId, setSelectedRaceId] = useState("");
-  const [raceDescription, setRaceDescription] = useState("");
+  const [selectedTypeId, setSelectedTypeId] = useState("");
+  const [typeDescription, setTypeDescription] = useState("");
 
   // Counter state for attributes
   const [strength, setStrength] = useState(1);
@@ -87,11 +87,11 @@ const SheetCreator = () => {
       .then((data) => setClassOptions(data))
       .catch((error) => console.error("Error fetching class data:", error));
 
-    // Fetch race data
-    fetch("/api/race")
+    // Fetch type data
+    fetch("/api/type")
       .then((response) => response.json())
-      .then((data) => setRaceOptions(data))
-      .catch((error) => console.error("Error fetching race data:", error));
+      .then((data) => setTypeOptions(data))
+      .catch((error) => console.error("Error fetching type data:", error));
 
     // Fetch inventory data
     fetch("/api/inventory")
@@ -120,12 +120,12 @@ const SheetCreator = () => {
           setIdSetter(selectedValue);
           setDescriptionSetter(selectedClass ? selectedClass.DESCRIPTION : "");
           break;
-        case "race":
-          const raceResponse = await fetch(`/api/race/${selectedValue}`);
-          const selectedRace = await raceResponse.json();
+        case "type":
+          const typeResponse = await fetch(`/api/type/${selectedValue}`);
+          const selectedType = await typeResponse.json();
           setter(selectedValue);
           setIdSetter(selectedValue);
-          setDescriptionSetter(selectedRace ? selectedRace.DESCRIPTION : "");
+          setDescriptionSetter(selectedType ? selectedType.DESCRIPTION : "");
           break;
         default:
           break;
@@ -176,7 +176,7 @@ const SheetCreator = () => {
   //   console.log("Pronouns:", pronouns);
   //   console.log("Background:", background);
   //   console.log("Selected Class ID:", selectedClassId);
-  //   console.log("Selected Race ID:", selectedRaceId);
+  //   console.log("Selected Type ID:", selectedTypeId);
   //   console.log("Selected Level:", selectedLevel);
   //   console.log("Strength:", strength);
   //   console.log("Dexterity:", dexterity);
@@ -196,7 +196,7 @@ const SheetCreator = () => {
       console.log("Pronouns:", pronouns);
       console.log("Background:", background);
       console.log("Selected Class ID:", selectedClassId);
-      console.log("Selected Race ID:", selectedRaceId);
+      console.log("Selected Type ID:", selectedTypeId);
       console.log("Selected Level:", selectedLevel);
       console.log("Strength:", strength);
       console.log("Dexterity:", dexterity);
@@ -217,7 +217,7 @@ const SheetCreator = () => {
           BACKGROUND: background,
           LEVEL: selectedLevel,
           CLASS: selectedClassId,
-          RACE: selectedRaceId,
+          TYPE: selectedTypeId,
           STRENGTH: strength,
           DEXTERITY: dexterity,
           RESILIENCE: resilience,
@@ -340,30 +340,30 @@ const SheetCreator = () => {
 
         <div className="col-5">
           <label>
-            Race:
+            Type:
             <select
-              value={raceId}
+              value={typeId}
               onChange={(e) =>
                 handleDropdownChange(
                   e,
-                  setRaceId,
-                  setSelectedRaceId,
-                  setRaceDescription,
-                  "race"
+                  setTypeId,
+                  setSelectedTypeId,
+                  setTypeDescription,
+                  "type"
                 )
               }
               className="form-select"
             >
-              <option value="">Select Race</option>
-              {raceOptions.map((raceItem) => (
-                <option key={raceItem.id} value={raceItem.id}>
-                  {raceItem.NAME}
+              <option value="">Select Type</option>
+              {typeOptions.map((typeItem) => (
+                <option key={typeItem.id} value={typeItem.id}>
+                  {typeItem.NAME}
                 </option>
               ))}
             </select>
             <div>
-              <h3>Selected Race Description</h3>
-              <p>{raceDescription}</p>
+              <h3>Selected Type Description</h3>
+              <p>{typeDescription}</p>
             </div>
           </label>
         </div>

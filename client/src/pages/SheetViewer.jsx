@@ -9,8 +9,8 @@ const SheetViewer = () => {
   const [characterDetails, setCharacterDetails] = useState(null);
   const [className, setClassName] = useState(null);
   const [classDescription, setClassDescription] = useState(null);
-  const [raceName, setRaceName] = useState(null);
-  const [raceDescription, setRaceDescription] = useState(null);
+  const [typeName, setTypeName] = useState(null);
+  const [typeDescription, setTypeDescription] = useState(null);
   const [inventoryList, setInventoryList] = useState(null);
   const [inventoryItems, setInventoryItems] = useState([]);
 
@@ -21,7 +21,7 @@ const SheetViewer = () => {
         .then((data) => {
           setCharacterDetails(data);
           fetchClassDetails(data.CLASS);
-          fetchRaceDetails(data.RACE);
+          fetchTypeDetails(data.TYPE);
         })
         .catch((error) =>
           console.error("Error fetching character details:", error)
@@ -65,14 +65,14 @@ const SheetViewer = () => {
       .catch((error) => console.error("Error fetching class details:", error));
   };
 
-  const fetchRaceDetails = (raceId) => {
-    fetch(`/api/race/${raceId}`)
+  const fetchTypeeDetails = (typeId) => {
+    fetch(`/api/type/${typeId}`)
       .then((response) => response.json())
       .then((data) => {
-        setRaceName(data.NAME);
-        setRaceDescription(data.DESCRIPTION);
+        setTypeName(data.NAME);
+        setTypeDescription(data.DESCRIPTION);
       })
-      .catch((error) => console.error("Error fetching race details:", error));
+      .catch((error) => console.error("Error fetching type details:", error));
   };
 
   const handleBackToHome = () => {
@@ -97,8 +97,8 @@ const SheetViewer = () => {
           <h2 style={{ color: 'fuchsia' }}>Background: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{characterDetails.BACKGROUND}</span></h2>
           <h2 style={{ color: 'fuchsia' }}>Class: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{className}</span></h2>
           <p style={{ color: 'fuchsia' }}>{classDescription}</p>
-          <h2 style={{ color: 'fuchsia' }}>Race: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{raceName}</span></h2>
-          <p style={{ color: 'fuchsia' }}>{raceDescription}</p>
+          <h2 style={{ color: 'fuchsia' }}>Type: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{typeName}</span></h2>
+          <p style={{ color: 'fuchsia' }}>{typeDescription}</p>
           <h2 style={{ color: 'fuchsia' }}>Level: <span style={{ color: '#DFFF00', fontSize: '23px'  }}>{characterDetails.LEVEL}</span></h2>
           <h2 style={{ color: 'fuchsia' }}>Inventory:</h2>
               <ul>

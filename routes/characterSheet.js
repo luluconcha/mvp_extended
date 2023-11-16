@@ -37,13 +37,13 @@ router.get("/:id", async (req, res) => {
 router.post('/', async (req, res) => {
   try {
 
-    const { CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, RACE, 
+    const { CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, TYPE, 
       STRENGTH, DEXTERITY, RESILIENCE, MAGIC, CUTENESS, inventoryItems } = req.body;
 
     await db(
-      `INSERT INTO CHARACTER_SHEET (CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, RACE, 
+      `INSERT INTO CHARACTER_SHEET (CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, TYPE, 
         STRENGTH, DEXTERITY, RESILIENCE, MAGIC, CUTENESS) 
-        VALUES ('${CHARACTER_NAME}', '${PRONOUNS}', '${BACKGROUND}', ${LEVEL}, ${CLASS}, ${RACE}, 
+        VALUES ('${CHARACTER_NAME}', '${PRONOUNS}', '${BACKGROUND}', ${LEVEL}, ${CLASS}, ${TYPE}, 
         ${STRENGTH}, ${DEXTERITY}, ${RESILIENCE}, ${MAGIC}, ${CUTENESS});`
     );
 
@@ -79,7 +79,7 @@ router.put('/:id', async (req, res) => {
 
     const characterId = req.params.id;
     
-    const { CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, RACE, 
+    const { CHARACTER_NAME, PRONOUNS, BACKGROUND, LEVEL, CLASS, TYPE, 
       STRENGTH, DEXTERITY, RESILIENCE, MAGIC, CUTENESS } = req.body;
 
     await db(
@@ -89,7 +89,7 @@ router.put('/:id', async (req, res) => {
       BACKGROUND = '${BACKGROUND}',
       LEVEL = ${LEVEL},
       CLASS = ${CLASS},
-      RACE = ${RACE},
+      TYPE = ${TYPE},
       STRENGTH = ${STRENGTH},
       DEXTERITY = ${DEXTERITY},
       RESILIENCE = ${RESILIENCE},
