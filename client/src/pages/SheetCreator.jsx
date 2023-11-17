@@ -168,24 +168,6 @@ const SheetCreator = () => {
   };
 
 
-  // Handle form submission
-  // const handleSectionSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Log the stored data
-  //   console.log("Character Name:", characterName);
-  //   console.log("Pronouns:", pronouns);
-  //   console.log("Background:", background);
-  //   console.log("Selected Class ID:", selectedClassId);
-  //   console.log("Selected Type ID:", selectedTypeId);
-  //   console.log("Selected Level:", selectedLevel);
-  //   console.log("Strength:", strength);
-  //   console.log("Dexterity:", dexterity);
-  //   console.log("Resilience:", resilience);
-  //   console.log("Magic:", magic);
-  //   console.log("Cuteness:", cuteness);
-  //   console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
-  // };
-
 
   const handleSectionSubmit = async (e) => {
     e.preventDefault();
@@ -434,4 +416,5 @@ const SheetCreator = () => {
     </div>
   );
 };
+
 export default SheetCreator;
