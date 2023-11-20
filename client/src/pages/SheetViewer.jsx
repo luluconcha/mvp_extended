@@ -16,7 +16,7 @@ const SheetViewer = () => {
 
   useEffect(() => {
     if (characterId) {
-      fetch(`/api/character/${characterId}`)
+      fetch(`/api/users/${userId}/characters`)
         .then((response) => response.json())
         .then((data) => {
           setCharacterDetails(data);

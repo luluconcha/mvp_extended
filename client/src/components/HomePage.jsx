@@ -4,49 +4,22 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const [characterSheets, setCharacterSheets] = useState([]);
+  const [user, setUser] = useState([])
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`/api/character/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        // Update the characterSheets after successful deletion
-        const updatedSheets = characterSheets.filter((sheet) => sheet.id !== id);
-        setCharacterSheets(updatedSheets);
-      } else {
-        console.error('Failed to delete character sheet');
-      }
-    } catch (error) {
-      console.error('Error deleting character sheet:', error);
-    }
-  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/character");
-        if (response.ok) {
-          const data = await response.json();
-          setCharacterSheets(data);
-        } else {
-          console.error("Failed to fetch character sheets");
-        }
-      } catch (error) {
-        console.error("Error fetching character sheets:", error);
-      }
-    };
-
-    fetchData();
   }, []);
 
   return (
     <div className="container text-center mt-5">
       <h1 className="text-fuchsia">Cotton Candy Land</h1>
-      <Link to="/sheetCreator">
-        <button className="btn custom-btn m-3">Create Character Sheet</button>
+      <Link to="/storypoints">
+        <button className="btn custom-btn m-3">Play</button>
       </Link>
+      <Link to="/login">
+        <button className="btn custom-btn m-3">Play for real</button>
+      </Link>
+  
       <h2 className="text-fuchsia">Character Sheets</h2>
       <div className="row1 d-flex justify-content-center align-items-center">
         <ul className="list-unstyled">

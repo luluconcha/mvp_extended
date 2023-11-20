@@ -3,7 +3,10 @@ const router = express.Router();
 const models = require("../models");
 
 //get the one character
-router.get("/:id", async(req, res) => {
+
+
+
+router.get("characters/:id", async(req, res) => {
     const {id} = req.params
     try {
         const character = await models.Character.findOne({
@@ -18,7 +21,7 @@ router.get("/:id", async(req, res) => {
     } 
 })
 
-router.post("/:id/items", async (req, res) => {
+router.post("characters/:id/items", async (req, res) => {
     const {item} = req.body
     try {
         const character = await models.Character.findOne({
@@ -32,7 +35,7 @@ router.post("/:id/items", async (req, res) => {
     } 
 })
 
-router.delete("/:id/items", async (req, res) => {
+router.delete("characters/:id", async (req, res) => {
     const {item} = req.body
     try {
         const character = await models.Character.findOne({where: {id}})

@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       StoryPoint.belongsTo(models.StoryPoint, {as: 'parent', foreignKey: 'parentID'})
       StoryPoint.hasMany(models.StoryPoint, {as: 'child', foreignKey: 'parentID'})
-      StoryPoint.hasOne(models.Challenge)
-      StoryPoint.belongsTo(models.UserID)
+      StoryPoint.belongsTo(models.Challenge)
+      StoryPoint.hasOne(models.Character)
     }
   }
   StoryPoint.init({

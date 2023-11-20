@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Creature.hasMany(models.Item)
+      Creature.hasMany(models.Character)
     }
   }
   Creature.init({

@@ -1,4 +1,16 @@
+header {
+    background-color: rgb(209, 237, 128);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 10;
+  }
+
 body {
     background-color: #ffbcff; 
     color: #333;    
 }
+
+
+
