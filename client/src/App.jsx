@@ -12,7 +12,6 @@ import RequireAuth from "./components/RequireAuth";
 import NavBar from "./components/NavBar";
 import AuthProvider from "./components/AuthProvider";
 import Login from "./components/Login.jsx";
-import {useState} from 'react'
 
 
 function App() {
@@ -23,14 +22,18 @@ function App() {
           
       <div className="App container p-5">
       <header>
-        <h1>CottonCandyLand</h1>
         <NavBar />
+          <h1>CottonCandyLand</h1>
         </header>  
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/storypoints" element={<StoryMap />} />
-          <Route path="/storypoints/:id" element={<ViewStoryPoint />} />
+          <Route path="/storypoints" element={<StoryMap />}>
+            <Route path="/storypoints/:id" element={<ViewStoryPoint />}>
+              <Route path="/storypoints/:id" element={<CreateStoryPoint />} />
+            </Route>
+          </Route>
+
           <Route path="/private" element={
               <RequireAuth>
                 <UserPage />

@@ -6,7 +6,7 @@ export default function NavBar() {
   const { isLoggedIn, onLogout } = useAuth();
   return (
     <div className="navbar">
-      <Link to="/"><button>home</button></Link>
+      <Link to="/storypoints"><button>storymap</button></Link>
         {!isLoggedIn && <Link to="/login"><button>login</button></Link>}
         {isLoggedIn && <Link to="/private"><button>my page</button></Link>}
         {isLoggedIn && <button onClick={onLogout}>logout</button>}

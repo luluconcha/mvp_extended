@@ -1,7 +1,10 @@
 import { useState } from 'react' 
+import { useNavigate } from 'react-router-dom'
 
-
-export default function CreateStoryPoint() {
+export default function CreateStoryPoint({id}) {
+  const navigate = useNavigate()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("") 
   const [children, setChildren] = useState("")
@@ -11,7 +14,7 @@ export default function CreateStoryPoint() {
 
   async function createStoryPoint() {
     try {
-      const response = await fetch("/api/students", {
+      const response = await fetch("/api/storypoints", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -19,16 +22,17 @@ export default function CreateStoryPoint() {
         body: JSON.stringify({
           title: inputTitle,
           content: inputContent,
+          parentID: id,
   
         })
       });
       if (!response.ok)
         throw new Error(`Oops! ${response.status} ${response.statusText}`);
       const nextPoint = await response.json();
-      return nextPoint;
+      return nextPoint
     } catch (error) {
       setError(error.message);
-      console.log("error in addStudent function");
+      console.log("error in addStorypoint function");
     } finally {
       setLoading(false);
 
@@ -47,6 +51,7 @@ export default function CreateStoryPoint() {
     event.preventDefault();
     setLoading(true);
     setError("");
+    createStoryPoint()
   };
 
 
@@ -59,7 +64,7 @@ export default function CreateStoryPoint() {
         <input
           type="text"
           value={inputTitle}
-          onChange={e => handleChange(e)}
+          onChange={e => handleTitle(e)}
         ></input>
         <br />
         <br />
@@ -67,7 +72,7 @@ export default function CreateStoryPoint() {
         <input
           type="text"
           value={inputContent}
-          onChange={e => handleChange(e)}
+          onChange={e => handleContent(e)}
         ></input>
         <br />
         <br />

@@ -31,11 +31,9 @@ router.post("/login", async (req, res) => {
         username
       }
     })
-    console.log("line 34")
-    console.log(results)
+ 
     const user = results.dataValues;
-    console.log("line 37")
-    console.log(user)
+
     if (user) {
       const user_id = user.id;
 

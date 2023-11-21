@@ -20,6 +20,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/auth", authRouter);
+app.use("/api/characters", characterRouter);
+app.use("/api/storypoints", storyRouter);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname + "/client/dist/index.html"));
@@ -27,8 +29,7 @@ app.get("*", (req, res) => {
 
 
 
-app.use("/api/character", characterRouter);
-app.use("/api/storypoints", storyRouter);
+
 
 
 

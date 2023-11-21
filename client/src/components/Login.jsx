@@ -29,7 +29,6 @@ function Login() {
         data: credentials,
       })
       console.log(data)
-      
 
       localStorage.setItem("token", data.token);
       onLogin();

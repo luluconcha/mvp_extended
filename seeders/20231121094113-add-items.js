@@ -36,7 +36,7 @@ module.exports = {
         name: 'red dragon'
       }
     })
-    
+
     queryInterface.bulkInsert('Items', [
     {
       item: 'big stick',
@@ -78,7 +78,7 @@ module.exports = {
     }, 
     {
       item: 'towel',
-      creatureID: creature.id,
+      creatureId: creature.id,
       createdAt: new Date(),
       updatedAt: new Date(),
     }])
