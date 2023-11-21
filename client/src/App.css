@@ -1,16 +1,53 @@
-header {
-    background-color: rgb(209, 237, 128);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0;
-    padding: 10;
-  }
 
 body {
     background-color: #ffbcff; 
     color: #333;    
 }
 
+.login {
+  padding: 30px;
+  margin: 50px;
+}
 
+.navbar {
+  float: right;
+  text-align: right;
+  padding: 2em;
+  margin: 1em;
+}
 
+button {
+  justify-content: end;
+  font-family: "Lemondrop";
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #ebeed9;
+}
+
+button:active {
+  background-color: #DFFF00;
+}
+h1 {
+  font-family: "morgiah";
+  font-weight: bolder;
+  font-size:78px;
+  color: #ff00ff;
+  text-shadow: 3px 3px #DFFF00;
+}
+
+@font-face {
+  font-family: 'Gunydrops';
+  src: local('Gunydrops'), url(./fonts/Gunydrops.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Morgiah';
+  src: local('Morgiah'), url(./fonts/MORGIAH.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Lemondrop';
+  src: local('Lemondrop'), url(./fonts/Lemondrop.ttf) format('truetype');
+}

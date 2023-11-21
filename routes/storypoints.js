@@ -11,6 +11,21 @@ router.get("/storypoints", async(req, res) => {
     } 
 })
 
+router.get("storypoints/:id", async(req, res) => {
+    const {id} = req.params
+    try {
+        const storypoint = await models.Storypoint.findOne({
+            where: {
+                id
+            },
+        include: models.Character,
+    })
+    res.send(storypoint)
+    } catch (err) {
+        res.status(500).send(err)
+    } 
+})
+
 router.post("/storypoints", async (req, res) => {
     const {title, content, parent} = req.body
     try {
@@ -25,7 +40,5 @@ router.post("/storypoints", async (req, res) => {
     }
 })
 
-router.delete("/storypoints", async (req, res) =>{
-    
-})
+
 module.exports = router;

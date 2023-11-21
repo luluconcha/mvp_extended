@@ -65,7 +65,7 @@ const SheetViewer = () => {
       .catch((error) => console.error("Error fetching class details:", error));
   };
 
-  const fetchTypeeDetails = (typeId) => {
+  const fetchTypeDetails = (typeId) => {
     fetch(`/api/type/${typeId}`)
       .then((response) => response.json())
       .then((data) => {

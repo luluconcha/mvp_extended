@@ -224,9 +224,7 @@ const SheetCreator = () => {
     <div>
     <div className="btn-container">
     <div className="d-flex justify-content-center align-items-center">
-    <button className="btn btn-info" onClick={handleBackToHome}>
-      Back to Home Page
-    </button>
+
     </div>        
     </div>        
     <form onSubmit={handleSubmit}>

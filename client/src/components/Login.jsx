@@ -1,13 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
 import useAuth from "../hooks/useAuth.js";
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
-  const { onLogin } = useAuth();
+  const navigate = useNavigate()
 
+  const { onLogin } = useAuth();
+  
   const [credentials, setCredentials] = useState({
-    username: "test",
-    password: "test",
+    username: "",
+    password: "",
   });
 
   const [data, setData] = useState(null);
@@ -30,6 +33,7 @@ function Login() {
 
       localStorage.setItem("token", data.token);
       onLogin();
+      navigate({pathname: "/private"})
       console.log(data.message, data.token);
     } catch (error) {
       console.log(error);
@@ -69,13 +73,12 @@ function Login() {
 
   return (
     <div>
-      <div>
+      <div className="login">
         <input
           value={username}
           onChange={handleChange}
           name="username"
           type="text"
-          className="form-control mb-2"
         />
         <input
           value={password}
@@ -85,28 +88,17 @@ function Login() {
           className="form-control mb-2"
         />
         <div className="d-flex gap-2 justify-content-center">
-          <button className="btn btn-primary" onClick={login}>
-            Log in
+          <button onClick={login}>
+            login
           </button>
-          <button className="btn btn-outline-dark ml-2" onClick={logout}>
-            Log out
-          </button>
-          <button className="btn btn-primary" onClick={signup}>
-            Sign up 
+          <button onClick={signup}>
+            signup 
           </button>
         </div>
       </div>
       <div className="text-center p-4">
-        <button className=" btn btn-outline-primary" onClick={requestData}>
-          Request protected data
-        </button>
-      </div>
 
-      {data && (
-        <div className="text-center p-4">
-          <div className="alert">{data}</div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
