@@ -8,16 +8,19 @@ export default function StoryMap() {
   const [storypoint, setStorypoint] = useState()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  
-  
-  async function handleClick(e) {
-    e.preventDefault()
-    getStorypoint()
+  const [id, setID] = useState(2)
+
+  useEffect(() => {
+    getStorypoint();
+  }, [id]);
+
+  async function handleClick() {
+    await getStorypoint()
   }
 
   async function getStorypoint() {
     try {
-      const response = await fetch("api/storypoints/2");
+      const response = await fetch(`api/storypoints/${id}`);
       if (!response.ok) throw new Error(`Oops! error ${response.status}!`);
       const focuspoint = await response.json();
       setStorypoint(focuspoint);
@@ -28,13 +31,15 @@ export default function StoryMap() {
     }
   }
 
+ 
+
   return (
     <div>
-      <img src="mapa.png" onClick={(e) => handleClick(e)}></img>
+      <img src="mapa.png" onClick={() => handleClick()}></img>
       <br /><br /><br />
-      {error && error.message}
-  
-      <ViewStoryPoint storypoint={storypoint}/>
+      
+      
+      <ViewStoryPoint storypoint={storypoint} setID={setID}/>
       
 
     </div>

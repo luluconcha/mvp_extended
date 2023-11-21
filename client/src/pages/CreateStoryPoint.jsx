@@ -5,16 +5,13 @@ export default function CreateStoryPoint({id}) {
   const navigate = useNavigate()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("") 
-  const [children, setChildren] = useState("")
   const [inputTitle, setInputTitle] =useState("")
   const [inputContent, setInputContent] =useState("")
 
 
   async function createStoryPoint() {
     try {
-      const response = await fetch("/api/storypoints", {
+      const response = await fetch("api/storypoints/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -22,12 +19,11 @@ export default function CreateStoryPoint({id}) {
         body: JSON.stringify({
           title: inputTitle,
           content: inputContent,
-          parentID: id,
-  
+          ParentID: id,
         })
       });
-      if (!response.ok)
-        throw new Error(`Oops! ${response.status} ${response.statusText}`);
+      if (!response.ok) throw new Error(`Oops! ${response.status} ${response.statusText}`);
+      console.log(response)
       const nextPoint = await response.json();
       return nextPoint
     } catch (error) {
@@ -35,7 +31,6 @@ export default function CreateStoryPoint({id}) {
       console.log("error in addStorypoint function");
     } finally {
       setLoading(false);
-
     }
   }
 
@@ -47,17 +42,19 @@ export default function CreateStoryPoint({id}) {
     setInputTitle(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     setLoading(true);
     setError("");
-    createStoryPoint()
+    await createStoryPoint()
+    
   };
 
 
   return (
     <div>
       <form className="createstorypoint">
+        
         <br />
         <br />
         title:{" "}
@@ -78,7 +75,7 @@ export default function CreateStoryPoint({id}) {
         <br />
         <button type="submit" onClick={e => handleSubmit(e)}>
           {" "}
-          submit{" "}
+          add storypoint{" "}
         </button>
       </form>
  

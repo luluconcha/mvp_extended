@@ -19,7 +19,6 @@ router.get("/:id", async(req, res) => {
             where: {
                 id
             },
-  
     })
     res.send(storypoint)
     } catch (err) {
@@ -27,18 +26,41 @@ router.get("/:id", async(req, res) => {
     } 
 })
 
+router.get("/:id/children", async(req, res) => {
+    const {id} = req.params
+
+    try {
+        const storypoints = await models.StoryPoint.findAll({
+            where: {
+                ParentID : id
+            },
+    })
+    console.log(storypoints)
+    res.send(storypoints)
+    } catch (err) {
+        res.status(500).send(err)
+    } 
+})
+
 router.post("/", async (req, res) => {
-    const {title, content, parent} = req.body
+    const {title, content, ParentID} = req.body
     try {
         const newStorypoint = await models.StoryPoint.create({
             title: title,
             content: content,
             flagged: false,
+            ParentID: ParentID,
             createdAt: new Date(),
             updatedAt: new Date(),
-            parentID: parent.id
         }, {
-            fields: ["title", "content", "flagged", "createdAt", "updatedAt", "ParentID"]
+            fields: [
+                "title",
+                "content",
+                "flagged",
+                "ParentID",
+                "createdAt",
+                "updatedAt"
+            ]
         })
         res.status(200).send(newStorypoint)
     } catch (err) {

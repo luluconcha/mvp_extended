@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-export default function UserPage() {
+export default function UserPage({username}) {
   
 
   async function getCharacters() {
@@ -11,7 +11,7 @@ export default function UserPage() {
   
   return (
     <div>
-      <h2> WELCOME </h2>
+      <h2> {`WELCOME`}</h2>
     <br />
     <Link to="/createCharacter">create new character</Link>
 

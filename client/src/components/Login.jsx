@@ -32,7 +32,7 @@ function Login() {
 
       localStorage.setItem("token", data.token);
       onLogin();
-      navigate({pathname: "/private"})
+      navigate({pathname: "/private"}, {state: {username: username}})
       console.log(data.message, data.token);
     } catch (error) {
       console.log(error);

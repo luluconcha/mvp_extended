@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      StoryPoint.belongsTo(models.StoryPoint, {as: 'parent', foreignKey: 'parentID'})
-      StoryPoint.hasMany(models.StoryPoint, {as: 'children', foreignKey: 'parentID'})
+      StoryPoint.belongsTo(models.StoryPoint, {as: 'parent', foreignKey: 'ParentID'})
+      StoryPoint.hasMany(models.StoryPoint, {as: 'children', foreignKey: 'ParentID'})
       StoryPoint.belongsTo(models.Challenge)
       StoryPoint.hasOne(models.Character)
     }

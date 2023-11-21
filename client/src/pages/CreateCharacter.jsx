@@ -29,39 +29,36 @@ const SheetCreator = () => {
   const [pronouns, setPronouns] = useState("");
   const [background, setBackground] = useState("");
 
-  // State for storing class, type, and level data
-  const [classOptions, setClassOptions] = useState([]);
-  const [typeOptions, setTypeOptions] = useState([]);
-  const [levelOptions] = useState(
-    Array.from({ length: 10 }, (_, index) => index + 1)
-  );
-
-  // State for selected class, type, and level
-  const [classId, setClassId] = useState("");
-  const [typeId, setTypeId] = useState("");
-  const [selectedLevel, setSelectedLevel] = useState(1);
-
-  // New state variables for selected class and type IDs
-  const [selectedClassId, setSelectedClassId] = useState("");
-  const [classDescription, setClassDescription] = useState("");
-  const [selectedTypeId, setSelectedTypeId] = useState("");
-  const [typeDescription, setTypeDescription] = useState("");
-
-  // Counter state for attributes
-  const [strength, setStrength] = useState(1);
-  const [dexterity, setDexterity] = useState(1);
-  const [resilience, setResilience] = useState(1);
-  const [magic, setMagic] = useState(1);
+  const [creatureId, setCreatureId] = useState("");
+  const [creatureDescription, setCreatureDescription] = useState("");
   const [cuteness, setCuteness] = useState(1);
 
-  // New state for the array of selected inventory item IDs
-  const [selectedInventoryItemIds, setSelectedInventoryItemIds] = useState([]);
-  const [selectedItemDescription, setSelectedItemDescription] = useState(null);
+  async function createStoryPoint() {
+    try {
+      const response = await fetch("/api/characters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: inputTitle,
+          content: inputContent,
+          parentID: id,
+  
+        })
+      });
+      if (!response.ok)
+        throw new Error(`Oops! ${response.status} ${response.statusText}`);
+      const nextPoint = await response.json();
+      return nextPoint
+    } catch (error) {
+      setError(error.message);
+      console.log("error in addCharacter function");
+    } finally {
+      setLoading(false);
 
-
-  // State for inventory items
-  const [allInventory, setAllInventory] = useState([]);
-
+    }
+  }
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -82,22 +79,14 @@ const SheetCreator = () => {
 
   useEffect(() => {
     // Fetch class data
-    fetch("/api/class")
+    fetch("/api/")
       .then((response) => response.json())
       .then((data) => setClassOptions(data))
       .catch((error) => console.error("Error fetching class data:", error));
 
     // Fetch type data
-    fetch("/api/type")
-      .then((response) => response.json())
-      .then((data) => setTypeOptions(data))
-      .catch((error) => console.error("Error fetching type data:", error));
 
-    // Fetch inventory data
-    fetch("/api/inventory")
-      .then((response) => response.json())
-      .then((data) => setAllInventory(data))
-      .catch((error) => console.error("Error fetching inventory data:", error));
+
   }, []);
 
   // Handle dropdown changes
@@ -173,19 +162,6 @@ const SheetCreator = () => {
     e.preventDefault();
   
     try {
-      // Log the stored data
-      console.log("Character Name:", characterName);
-      console.log("Pronouns:", pronouns);
-      console.log("Background:", background);
-      console.log("Selected Class ID:", selectedClassId);
-      console.log("Selected Type ID:", selectedTypeId);
-      console.log("Selected Level:", selectedLevel);
-      console.log("Strength:", strength);
-      console.log("Dexterity:", dexterity);
-      console.log("Resilience:", resilience);
-      console.log("Magic:", magic);
-      console.log("Cuteness:", cuteness);
-      console.log("Selected Inventory Item IDs:", selectedInventoryItemIds);
   
       // Make a POST request to your endpoint
       const response = await fetch('/api/character', {
@@ -197,15 +173,9 @@ const SheetCreator = () => {
           CHARACTER_NAME: characterName,
           PRONOUNS: pronouns,
           BACKGROUND: background,
-          LEVEL: selectedLevel,
-          CLASS: selectedClassId,
-          TYPE: selectedTypeId,
-          STRENGTH: strength,
-          DEXTERITY: dexterity,
-          RESILIENCE: resilience,
-          MAGIC: magic,
+          CREATURE: selectedClassId,
           CUTENESS: cuteness,
-          inventoryItems: selectedInventoryItemIds,
+
         }),
       });
   
@@ -270,16 +240,16 @@ const SheetCreator = () => {
         <div className="row mb-3">
         <div className="col-5">
           <label>
-            Class:
+            Creature:
             <select
-              value={classId}
+              value={creatureId}
               onChange={(e) =>
                 handleDropdownChange(
                   e,
-                  setClassId,
-                  setSelectedClassId,
-                  setClassDescription,
-                  "class"
+                  setCreatureId,
+                  setSelectedCreatureId,
+                  setCreatureDescription,
+                  "creature"
                 )
               }
               className="form-select"
